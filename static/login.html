@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登入 | BobiiShop</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 480px;
+      margin: 100px auto;
+      background: white;
+      padding: 40px;
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0 16px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      background-color: black;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .social-login {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .social-login a {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .google { background-color: #DB4437; color: white; }
+    .facebook { background-color: #4267B2; color: white; }
+    .line { background-color: #00C200; color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>登入</h2>
+    <form action="/login" method="POST">
+      <input type="text" name="username" placeholder="帳號" required>
+      <input type="password" name="password" placeholder="密碼" required>
+      <button type="submit">登入</button>
+    </form>
+    <div class="social-login">
+      <a class="google" href="/login/google">使用 Google 登入</a>
+      <a class="facebook" href="/login/facebook">使用 Facebook 登入</a>
+      <a class="line" href="/login/line">使用 LINE 登入</a>
+    </div>
+  </div>
+</body>
+</html>
