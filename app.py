@@ -90,3 +90,47 @@ def logout():
 
 if __name__ == '__main__':
     init_db()
+import os
+import requests
+from flask import redirect, request, session, url_for
+
+LINE_CHANNEL_ID = "2007158321"
+LINE_CHANNEL_SECRET = "d9bf13bd12fdcb63bf7bba97241e2581"
+LINE_CALLBACK_URI = "https://bobii.onrender.com/line/callback"
+
+@app.route("/line/login")
+def line_login():
+    line_auth_url = (
+        "https://access.line.me/oauth2/v2.1/authorize"
+        "?response_type=code"
+        f"&client_id={LINE_CHANNEL_ID}"
+        f"&redirect_uri={LINE_CALLBACK_URI}"
+        "&scope=profile%20openid%20email"
+        "&state=random_state"
+    )
+    return redirect(line_auth_url)
+
+@app.route("/line/callback")
+def line_callback():
+    code = request.args.get("code")
+    token_url = "https://api.line.me/oauth2/v2.1/token"
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
+    data = {
+        "grant_type": "authorization_code",
+        "code": code,
+        "redirect_uri": LINE_CALLBACK_URI,
+        "client_id": LINE_CHANNEL_ID,
+        "client_secret": LINE_CHANNEL_SECRET,
+    }
+    token_res = requests.post(token_url, headers=headers, data=data)
+    token_json = token_res.json()
+    id_token = token_json.get("id_token")
+
+    profile_url = "https://api.line.me/v2/profile"
+    headers = {"Authorization": f"Bearer {token_json['access_token']}"}
+    profile_res = requests.get(profile_url, headers=headers)
+    profile = profile_res.json()
+
+    session["user_id"] = profile["userId"]
+    session["username"] = profile["displayName"]
+    return redirect(url_for("index"))
