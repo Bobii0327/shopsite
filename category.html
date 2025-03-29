@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head><title>{{ category }}</title></head>
+<body>
+<h1>{{ category }} 商品</h1>
+<ul>
+{% for p in products %}
+  <li><a href="{{ url_for('product', product_id=p[0]) }}">{{ p[1] }} - ${{ p[2] }}</a></li>
+{% endfor %}
+</ul>
+<a href="/">回首頁</a>
+</body>
+</html>
