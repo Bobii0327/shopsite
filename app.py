@@ -174,3 +174,50 @@ def line_callback():
     # 模擬登入
     session['user_id'] = profile['userId']
     return redirect(url_for('index'))
+import os
+import requests
+from flask import redirect, request
+
+# 加在 app = Flask(__name__) 下方
+LINE_CLIENT_ID = '2007158321'
+LINE_CLIENT_SECRET = 'd9bf13bd12fdcb63bf7bba97241e2581'
+LINE_REDIRECT_URI = 'https://bobii.onrender.com/line_callback'
+
+@app.route('/line_login')
+def line_login():
+    return redirect(
+        f"https://access.line.me/oauth2/v2.1/authorize?response_type=code"
+        f"&client_id={LINE_CLIENT_ID}"
+        f"&redirect_uri={LINE_REDIRECT_URI}"
+        f"&state=12345"
+        f"&scope=profile%20openid%20email"
+    )
+
+@app.route('/line_callback')
+def line_callback():
+    code = request.args.get("code")
+    token_url = "https://api.line.me/oauth2/v2.1/token"
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    data = {
+        "grant_type": "authorization_code",
+        "code": code,
+        "redirect_uri": LINE_REDIRECT_URI,
+        "client_id": LINE_CLIENT_ID,
+        "client_secret": LINE_CLIENT_SECRET
+    }
+
+    token_response = requests.post(token_url, headers=headers, data=data)
+    token_json = token_response.json()
+    access_token = token_json.get("access_token")
+
+    profile_response = requests.get(
+        "https://api.line.me/v2/profile",
+        headers={"Authorization": f"Bearer {access_token}"}
+    )
+    profile = profile_response.json()
+    line_id = profile.get("userId")
+    name = profile.get("displayName")
+
+    # 你可以根據 line_id 建立或查詢使用者帳號
+    session['user_id'] = line_id  # 直接登入
+    return redirect(url_for('index'))
