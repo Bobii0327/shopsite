@@ -25,6 +25,9 @@ def init_db():
                       ('限量徽章', 150.0, '質感滿分，數量有限，送禮自用兩相宜。', '/static/badge.jpg', '徽章'))
         conn.commit()
 
+# 這行移到外面，確保部署時也會執行
+init_db()
+
 @app.route('/')
 def index():
     with sqlite3.connect(DB_NAME) as conn:
@@ -86,6 +89,4 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    
     app.run(debug=True)
-    init_db()
