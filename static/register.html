@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>註冊 | BobiiShop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+        .container {
+            max-width: 420px;
+            margin: 80px auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            color: #222;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        .or {
+            text-align: center;
+            margin: 20px 0;
+            color: #888;
+        }
+        .social-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .line-btn, .google-btn, .facebook-btn {
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+        }
+        .line-btn {
+            background-color: #00c300;
+        }
+        .google-btn {
+            background-color: #db4437;
+        }
+        .facebook-btn {
+            background-color: #3b5998;
+        }
+        .link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .link a {
+            color: #555;
+            text-decoration: none;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>註冊</h2>
+        <form method="POST">
+            <input type="text" name="username" placeholder="帳號" required>
+            <input type="password" name="password" placeholder="密碼" required>
+            <button type="submit">註冊</button>
+        </form>
+
+        <div class="or">或使用其他方式註冊</div>
+        <div class="social-btns">
+            <a href="/line_login" class="line-btn">使用 LINE 註冊</a>
+            <a href="/google_login" class="google-btn">使用 Google 註冊</a>
+            <a href="/facebook_login" class="facebook-btn">使用 Facebook 註冊</a>
+        </div>
+        <div class="link">
+            已有帳號？<a href="/login">登入</a>
+        </div>
+    </div>
+</body>
+</html>
